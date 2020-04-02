@@ -1,5 +1,5 @@
 Ansible Role Promtail
-=========
+=====================
 
 This role installs [Promtail](https://github.com/grafana/loki/tree/master/docs/clients/promtail).
 
@@ -14,7 +14,7 @@ Role Variables
 --------------
 
 ``` yaml
-# Verion of promtail that should be installed.
+# Version of promtail that should be installed.
 promtail_version: "1.3.0"
 
 # The loki server where promtail will send the data to.
@@ -30,7 +30,7 @@ promtail_loki_server_domain:
 #       - localhost
 #       labels:
 #         job: syslog
-#         host: {{ ansible_host }}
+#         host: {{ ansible_fqdn }}
 #         __path__: /var/log/syslog
 promtail_scrape_configs: []
 
@@ -66,7 +66,7 @@ Example Playbook
             - localhost
             labels:
               job: syslog
-              host: "{{ ansible_host }}"
+              host: "{{ ansible_fqdn }}"
               __path__: /var/log/syslog
 ```
 
@@ -78,4 +78,4 @@ MIT
 Author Information
 ------------------
 
-This role was created in 2020 by Djordje Atlialp. 
+This role was created in 2020 by Djordje Atlialp.

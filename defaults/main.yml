@@ -14,7 +14,7 @@ promtail_loki_server_domain:
 #       - localhost
 #       labels:
 #         job: syslog
-#         host: {{ ansible_host }}
+#         host: {{ ansible_fqdn }}
 #         __path__: /var/log/syslog
 promtail_scrape_configs: []
 
