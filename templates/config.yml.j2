@@ -1,0 +1,28 @@
+# Promtail Server Config
+server:
+  http_listen_port: {{ promtail_http_listen_server }}
+  grpc_listen_port: {{ promtail_grpc_listen_port }}
+
+# Positions
+positions:
+  filename: /tmp/positions.yaml
+
+# Loki Server URL
+clients:
+  - url: {{ promtail_loki_server_proto }}://{{ promtail_loki_server_domain }}/loki/api/v1/push
+
+scrape_configs:
+{% for job in promtail_scrape_configs %}
+  - job_name: {{ job.job_name }}
+    static_configs:
+{% for config in job.static_configs %}
+      - targets:
+{% for target in config.targets %}
+        - {{ target }}
+{% endfor %}
+        labels:
+{% for label, value in config.labels.items() %}
+          {{ label }}: {{ value }}
+{% endfor %}
+{% endfor %}
+{% endfor %}

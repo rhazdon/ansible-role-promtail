@@ -1,0 +1,10 @@
+---
+- name: Ensure config directory exist
+  file:
+    path: "{{ promtail_config_dir }}"
+    state: directory
+
+- name: Copy promtail config file
+  template: "src=config.yml.j2 dest={{ promtail_config_dir }}/config.yml"
+  notify:
+    - restart promtail

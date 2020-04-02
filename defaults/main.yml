@@ -1,2 +1,29 @@
 ---
-# defaults file for promtail
+promtail_version: "1.3.0"
+
+# The loki server where promtail will send the data to.
+promtail_loki_server_proto: "https"
+promtail_loki_server_domain:
+
+# Promtail scrape configurations
+#
+# Example:
+# - job_name: syslog
+#   static_configs:
+#     - targets:
+#       - localhost
+#       labels:
+#         job: syslog
+#         host: {{ ansible_host }}
+#         __path__: /var/log/syslog
+promtail_scrape_configs: []
+
+# Installation from source settings
+promtail_install_from_source: false
+promtail_home_dir: /opt/promtail
+promtail_config_dir: /etc/promtail
+promtail_executable: /usr/local/bin/promtail
+promtail_executable_options:
+
+promtail_http_listen_server: "9080"
+promtail_grpc_listen_port: "0"

@@ -1,2 +1,4 @@
 ---
-# handlers file for promtail
+- name: restart promtail
+  when: ansible_os_family == 'Debian'
+  systemd: name=promtail state=restarted daemon_reload=yes

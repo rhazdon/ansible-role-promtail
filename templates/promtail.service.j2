@@ -1,0 +1,9 @@
+[Unit]
+Description=Promtail
+Documentation=https://github.com/grafana/loki
+
+[Service]
+ExecStart={{ promtail_executable }} -config.file {{ promtail_config_dir }}/config.yml {{ promtail_executable_options }}
+
+[Install]
+WantedBy=multi-user.target

@@ -1,2 +1,6 @@
 ---
-# tasks file for promtail
+- include: setup-Debian.yml
+  when: (ansible_os_family == 'Debian') and (promtail_install_from_source == true)
+
+- include: configure.yml
+  when: promtail_install_from_source == true
