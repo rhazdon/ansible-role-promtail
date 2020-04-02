@@ -1,38 +1,81 @@
-Role Name
+Ansible Role Promtail
 =========
 
-A brief description of the role goes here.
+This role installs [Promtail](https://github.com/grafana/loki/tree/master/docs/clients/promtail).
+
+Promtail is an agent which ships the contents local logs to a private Loki instance or to the Grafana Cloud.
+It's usually deployed to every machine that has applications needed to be monitored.  
 
 Requirements
 ------------
-
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+None.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+``` yaml
+# Verion of promtail that should be installed.
+promtail_version: "1.3.0"
+
+# The loki server where promtail will send the data to.
+promtail_loki_server_proto: "https"
+promtail_loki_server_domain:
+
+# Promtail scrape configurations
+#
+# Example:
+# - job_name: syslog
+#   static_configs:
+#     - targets:
+#       - localhost
+#       labels:
+#         job: syslog
+#         host: {{ ansible_host }}
+#         __path__: /var/log/syslog
+promtail_scrape_configs: []
+
+# Installation from source settings
+promtail_install_from_source: false
+promtail_home_dir: /opt/promtail
+promtail_config_dir: /etc/promtail
+promtail_executable: /usr/local/bin/promtail
+promtail_executable_options:
+
+promtail_http_listen_server: "9080"
+promtail_grpc_listen_port: "0"
+```
 
 Dependencies
 ------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+``` yaml
+- hosts: all
+  roles:
+    - { role: rhazdon.promtail, tags: promtail }
+  vars:
+    promtail_install_from_source: true
+    promtail_loki_server_domain: my_loki_instance
+    promtail_scrape_configs:
+      - job_name: syslog
+        static_configs:
+          - targets:
+            - localhost
+            labels:
+              job: syslog
+              host: "{{ ansible_host }}"
+              __path__: /var/log/syslog
+```
 
 License
 -------
 
-BSD
+MIT
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+This role was created in 2020 by Djordje Atlialp. 
