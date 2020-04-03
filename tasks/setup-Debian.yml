@@ -1,4 +1,7 @@
 ---
+- name: Ensure {{ promtail_home_dir }} exists.
+  file: "path={{ promtail_home_dir }} state=directory"
+
 - name: Check if the current version is installed.
   stat:
     path: "{{ promtail_home_dir }}/promtail-{{ promtail_version }}"
