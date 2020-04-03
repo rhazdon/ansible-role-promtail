@@ -30,7 +30,7 @@ promtail_loki_server_domain:
 #       - localhost
 #       labels:
 #         job: syslog
-#         host: {{ ansible_fqdn }}
+#         host: {{ ansible_host }}
 #         __path__: /var/log/syslog
 promtail_scrape_configs: []
 
@@ -66,7 +66,7 @@ Example Playbook
             - localhost
             labels:
               job: syslog
-              host: "{{ ansible_fqdn }}"
+              host: "{{ ansible_host }}"
               __path__: /var/log/syslog
 ```
 
